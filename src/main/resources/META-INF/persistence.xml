@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2"
+             xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+    <!-- No lugar do Resource_local tem JTA que no caso é usado caso eu esteja em servidor da aplicação, que ele controla a transação pra mim,
+    Nesse caso então que usei o resource_local, na hora de persistir eu tenho que usar o getTransactional() para realizar a transação p/ mim -->
+    <persistence-unit name="loja" transaction-type="RESOURCE_LOCAL">
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver" />
+            <!-- Usar o Value com create Database permite criar uma dataBase caso a ela não exista -->
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/loja?createDatabaseIfNotExist=true" />
+<!--            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/loja" />-->
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="1234" />
+
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
+            <!-- O show sql Imprime no console alguma ação relacionada ao sql -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <!-- Cria o BD automaticamente caso nao houver hbm2ddl, nos value tem mais opções ex: create-drop(terminou de executar a app ele dropa -->
+            <!-- , tem a opções update ele atualiza a tbl caso houver uma nova mudança, validate(só valida e gera um log) -->
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+        </properties>
+    </persistence-unit>
+
+</persistence>
